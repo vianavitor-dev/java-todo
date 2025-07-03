@@ -1,6 +1,7 @@
 package com.example.todo_api.implement;
 
 import com.example.todo_api.dao.Dao;
+import com.example.todo_api.dao.UserDao;
 import com.example.todo_api.exceptions.ResourceNotFoundException;
 import com.example.todo_api.model.Group;
 import com.example.todo_api.model.Member;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserDaoImpl implements Dao<User, Long> {
+public class UserDaoImpl implements UserDao {
     @Autowired
     private EntityManager em;
 
@@ -127,6 +128,7 @@ public class UserDaoImpl implements Dao<User, Long> {
     Está função verifica se o usuário está registrado no sistema com base
     no email e senha
      */
+    @Override
     public User verify(User data) throws NoResultException {
         TypedQuery<User> query = em.createQuery(
                 "SELECT u FROM User u WHERE u.username = :username AND u.password = :password",

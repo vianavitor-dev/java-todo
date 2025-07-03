@@ -1,24 +1,21 @@
 package com.example.todo_api.controller;
 
+import com.example.todo_api.dao.UserDao;
 import com.example.todo_api.exceptions.ResourceNotFoundException;
-import com.example.todo_api.implement.UserDaoImpl;
 import com.example.todo_api.model.User;
 import jakarta.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 public class UserController {
     @Autowired
-    private UserDaoImpl dao;
+    private UserDao dao;
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<User>> getById(@PathVariable Long id) {

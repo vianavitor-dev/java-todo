@@ -1,6 +1,7 @@
 package com.example.todo_api.implement;
 
 import com.example.todo_api.dao.Dao;
+import com.example.todo_api.dao.GroupDao;
 import com.example.todo_api.exceptions.ResourceNotFoundException;
 import com.example.todo_api.model.Group;
 import com.example.todo_api.model.Member;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class GroupDaoImpl implements Dao<Group, Long> {
+public class GroupDaoImpl implements GroupDao {
     @Autowired
     private EntityManager em;
 
@@ -92,6 +93,7 @@ public class GroupDaoImpl implements Dao<Group, Long> {
     /*
     Está função busca e retorna os grupos que o usuário está participando
      */
+    @Override
     public List<Group> getGroupsFromUser(Long userId) {
         String select = "SELECT g FROM Group g JOIN Member m ON g.id = m.group.id WHERE m.user.id = :id";
         TypedQuery<Group> query = em.createQuery(select, Group.class);

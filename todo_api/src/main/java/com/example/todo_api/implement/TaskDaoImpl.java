@@ -1,6 +1,7 @@
 package com.example.todo_api.implement;
 
 import com.example.todo_api.dao.Dao;
+import com.example.todo_api.dao.TaskDao;
 import com.example.todo_api.exceptions.ResourceNotFoundException;
 import com.example.todo_api.model.Task;
 import jakarta.persistence.EntityManager;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class TaskDaoImpl implements Dao<Task, Long> {
+public class TaskDaoImpl implements TaskDao {
     @Autowired
     private EntityManager em;
 
@@ -83,6 +84,7 @@ public class TaskDaoImpl implements Dao<Task, Long> {
     /*
     Está função busca e retorna as tarefas criadas em determinado grupo
      */
+    @Override
     public List<Task> getTasksOfGroup(Long groupId) {
         String select = "SELECT t FROM Task t JOIN t.creator c WHERE c.group.id = :groupId";
         TypedQuery<Task> query = em.createQuery(select, Task.class);

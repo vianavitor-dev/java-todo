@@ -1,28 +1,25 @@
 package com.example.todo_api.controller;
 
+import com.example.todo_api.dao.MemberDao;
+import com.example.todo_api.dao.TaskDao;
 import com.example.todo_api.exceptions.ResourceNotFoundException;
-import com.example.todo_api.implement.MemberDaoImpl;
-import com.example.todo_api.implement.TaskDaoImpl;
 import com.example.todo_api.model.Member;
 import com.example.todo_api.model.Task;
-import jakarta.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/tasks")
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 public class TaskController {
     @Autowired
-    private TaskDaoImpl dao;
+    private TaskDao dao;
 
     @Autowired
-    private MemberDaoImpl memberDao;
+    private MemberDao memberDao;
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<Task>> getById(@PathVariable Long id) {

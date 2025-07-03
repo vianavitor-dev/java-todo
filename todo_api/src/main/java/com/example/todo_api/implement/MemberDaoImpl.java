@@ -1,6 +1,7 @@
 package com.example.todo_api.implement;
 
 import com.example.todo_api.dao.Dao;
+import com.example.todo_api.dao.MemberDao;
 import com.example.todo_api.exceptions.ResourceNotFoundException;
 import com.example.todo_api.model.Member;
 import jakarta.persistence.EntityManager;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class MemberDaoImpl implements Dao<Member, Long> {
+public class MemberDaoImpl implements MemberDao {
     @Autowired
     private EntityManager em;
 
@@ -80,6 +81,7 @@ public class MemberDaoImpl implements Dao<Member, Long> {
     /*
     Está função busca e retorna os membros registrados no grupo
      */
+    @Override
     public List<Member> getMembersInGroup(Long groupId) {
         String select = "SELECT m FROM Member m JOIN m.group g WHERE g.id = :groupId";
         TypedQuery<Member> query = em.createQuery(select, Member.class);

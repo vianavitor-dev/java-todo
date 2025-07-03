@@ -1,9 +1,9 @@
 package com.example.todo_api.controller;
 
+import com.example.todo_api.dao.GroupDao;
+import com.example.todo_api.dao.MemberDao;
+import com.example.todo_api.dao.UserDao;
 import com.example.todo_api.exceptions.ResourceNotFoundException;
-import com.example.todo_api.implement.GroupDaoImpl;
-import com.example.todo_api.implement.MemberDaoImpl;
-import com.example.todo_api.implement.UserDaoImpl;
 import com.example.todo_api.model.Group;
 import com.example.todo_api.model.Member;
 import com.example.todo_api.model.User;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -19,13 +18,13 @@ import java.util.List;
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 public class GroupController {
     @Autowired
-    private GroupDaoImpl dao;
+    private GroupDao dao;
 
     @Autowired
-    private UserDaoImpl userDao;
+    private UserDao userDao;
 
     @Autowired
-    private MemberDaoImpl memberDao;
+    private MemberDao memberDao;
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<Group>> getById(@PathVariable Long id) {
